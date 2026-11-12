@@ -39,7 +39,7 @@ section{scroll-margin-top:84px}
 .nav{position:sticky;top:0;z-index:40;background:rgba(255,253,185,.88);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
 .nav.scrolled{border-bottom-color:var(--ink)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:72px}
-.logo{display:block;line-height:0;flex:none}
+.logo{display:block;line-height:0;flex:none;padding:9px 0}
 .logo img{height:30px;width:auto}
 .links{display:flex;gap:28px;font-size:15px;font-weight:500}
 .links a{text-decoration:none;color:var(--muted);transition:color .2s}
@@ -339,6 +339,74 @@ footer{background:var(--bg);border-top:1.5px solid var(--ink)}
 .foot-links a{text-decoration:none}
 .foot-links a:hover{color:var(--ink)}
 
+/* mobile menu */
+.burger{display:none;width:46px;height:46px;border:1.5px solid var(--ink);border-radius:var(--r);background:transparent;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:0;flex:none}
+.burger i{display:block;width:18px;height:1.5px;background:var(--ink);transition:transform .3s var(--ease)}
+.burger[aria-expanded="true"] i:nth-child(1){transform:translateY(3.25px) rotate(45deg)}
+.burger[aria-expanded="true"] i:nth-child(2){transform:translateY(-3.25px) rotate(-45deg)}
+.mnav{display:none}
+.ann-short{display:none}
+@media (max-width:900px){
+  .burger{display:inline-flex}
+  .mnav{display:block;position:absolute;left:0;right:0;top:100%;background:var(--bg);border-bottom:1.5px solid var(--ink);max-height:0;overflow:hidden;visibility:hidden;transition:max-height .45s var(--ease),visibility 0s .45s}
+  .mnav.open{max-height:calc(100vh - 60px);visibility:visible;transition:max-height .45s var(--ease)}
+  .mnav-in{padding:4px 20px 24px;display:flex;flex-direction:column}
+  .mnav .ml{font-family:var(--serif);font-size:32px;line-height:1.15;text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(0,0,40,.12);opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s var(--ease);transition-delay:calc(var(--i)*.04s + .08s)}
+  .mnav.open .ml{opacity:1;transform:none}
+  .mnav .ctas{margin-top:20px}
+}
+
+/* phones */
+@media (max-width:600px){
+  .ann{font-size:13px;padding:6px 16px}
+  .ann-long{display:none}
+  .ann-short{display:inline}
+  .ann a{display:inline-block;padding:11px 0}
+  .ann{padding:0 16px}
+  .nav-in{height:62px}
+  .logo img{height:26px}
+  .nav-ctas{gap:8px}
+  .nav-ctas .btn{min-height:46px;padding:0 14px;font-size:14px}
+  .art{width:560px}
+  .beam{left:212px;width:110px}
+  .term{right:0;width:250px}
+  .hero-dark{padding:44px 0 56px}
+  .pill{font-size:12px;padding:6px 12px}
+  .h1{margin-top:18px}
+  .sub{font-size:16px}
+  .ctas{flex-direction:column;align-items:stretch}
+  .ctas .btn{width:100%}
+  .strip-in{grid-template-columns:1fr 1fr;gap:18px 12px;padding:24px 16px}
+  .si{gap:10px}
+  .si .ic{width:34px;height:34px}
+  .si b{font-size:13px}
+  .si span{font-size:12px}
+  .compare,.bento,.works{margin-top:36px}
+  .cmp{padding:24px 20px}
+  .cmp h3{font-size:30px}
+  .demo{height:190px}
+  .work.feat .work-art{min-height:200px}
+  .work-art{min-height:140px}
+  .path{margin-top:40px;gap:22px}
+  .ps{padding:18px}
+  .care-art{min-height:300px}
+  .orbit.o1{width:160px;height:160px}
+  .orbit.o2{width:250px;height:250px}
+  .core{width:84px;height:84px;font-size:50px;border-radius:22px}
+  .care-foot .btn{width:100%}
+  .chips{margin:28px auto 24px}
+  .chip{font-size:14px;padding:0 14px}
+  .foot{flex-direction:column;align-items:flex-start;gap:12px}
+  .foot-links{gap:4px 22px}
+  .foot-links a{display:inline-block;padding:11px 0}
+}
+@media (max-width:360px){.strip-in{grid-template-columns:1fr}.nav-ctas .btn-dark{display:none}}
+
+/* touch: no hover jumps */
+@media (hover:none){
+  .bx:hover,.work:hover,.btn:hover,.js .bx[data-reveal].in:hover,.js .work[data-reveal].in:hover{transform:none;box-shadow:none}
+}
+
 /* reveal */
 .js [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
 .js [data-reveal].in{opacity:1;transform:none}
@@ -354,7 +422,7 @@ footer{background:var(--bg);border-top:1.5px solid var(--ink)}
 </head>
 <body>
 
-<div class="ann">Online stores in Arabic &amp; English, built in Egypt for growing brands.<a href="#contact">Start a project &rarr;</a></div>
+<div class="ann"><span class="ann-long">Online stores in Arabic &amp; English, built in Egypt for growing brands.</span><span class="ann-short">Arabic &amp; English stores, built in Egypt.</span><a href="#contact">Start a project &rarr;</a></div>
 
 <header class="nav" id="nav">
   <div class="wrap nav-in">
@@ -365,7 +433,18 @@ footer{background:var(--bg);border-top:1.5px solid var(--ink)}
     <div class="nav-ctas">
       <a class="btn btn-dark" href="#contact">Start a project</a>
       <a class="btn btn-line" href="#contact">Contact us</a>
+      <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><i></i><i></i></button>
     </div>
+  </div>
+  <div class="mnav" id="mnav">
+    <nav class="mnav-in" aria-label="Mobile">
+      <a class="ml" href="#why" style="--i:0">Why EWD</a>
+      <a class="ml" href="#capabilities" style="--i:1">Capabilities</a>
+      <a class="ml" href="#process" style="--i:2">Process</a>
+      <a class="ml" href="#work" style="--i:3">Work</a>
+      <a class="ml" href="#care" style="--i:4">CARE+</a>
+      <div class="ctas"><a class="btn btn-dark" href="#contact">Start a project <span class="arr">&rarr;</span></a><a class="btn btn-line" href="https://wa.me/201554407052" target="_blank" rel="noopener">WhatsApp us</a></div>
+    </nav>
   </div>
 </header>
 
@@ -643,7 +722,7 @@ h1.innerHTML=words.map(function(w,i){return '<span class="w" aria-hidden="true" 
 
 /* hero art scale */
 var artBox=$('#artBox');
-function scaleArt(){var s=Math.min(1,(artBox.clientWidth-24)/780);artBox.style.setProperty('--s',s)}
+function scaleArt(){var s=Math.min(1,(artBox.clientWidth-24)/artBox.firstElementChild.offsetWidth);artBox.style.setProperty('--s',s)}
 window.addEventListener('resize',scaleArt);scaleArt();
 
 /* nav + process line */
@@ -693,6 +772,14 @@ $$('[data-demo]').forEach(function(el){var k=el.getAttribute('data-demo');
 var careCard=$('#careCard'),amt=$('#careAmt'),counted=false;
 if(!reduce&&'IntersectionObserver' in window){amt.textContent='$0';
   new IntersectionObserver(function(en,o){en.forEach(function(e){if(!e.isIntersecting||counted)return;counted=true;o.disconnect();setTimeout(function(){tween(1400,function(k){amt.textContent='$'+Math.round(75*k)})},400)})},{threshold:.3}).observe(careCard)}
+
+/* mobile menu */
+var burger=$('#burger'),mnav=$('#mnav');
+function setMenu(open){burger.setAttribute('aria-expanded',open);burger.setAttribute('aria-label',open?'Close menu':'Open menu');mnav.classList.toggle('open',open)}
+burger.addEventListener('click',function(){setMenu(burger.getAttribute('aria-expanded')!=='true')});
+$$('#mnav a').forEach(function(a){a.addEventListener('click',function(){setMenu(false)})});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')setMenu(false)});
+window.addEventListener('resize',function(){if(innerWidth>900)setMenu(false)});
 
 /* contact chips -> WhatsApp */
 var wa=$('#waBtn'),base='https://wa.me/201554407052';
